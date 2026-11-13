@@ -1,4 +1,4 @@
-
+import { demoProducts } from "./data/products";
 import {useEffect,useMemo,useState} from "react";
 import {
   Leaf,ShoppingBag,Search,Menu,X,Plus,Minus,Trash2,
@@ -239,7 +239,18 @@ export default function App(){
     try{
       await deleteProduct(id,adminToken);
 
-      const data=await getProducts();
+      getProducts()
+  .then(d => {
+    if (d.products?.length) {
+      setProducts(d.products);
+    } else {
+      setProducts(demoProducts);
+    }
+  })
+  .catch(() => {
+    setProducts(demoProducts);
+  });
+ [];
 
       setProducts(data.products||[]);
       resetAdminForm();
@@ -373,7 +384,7 @@ export default function App(){
 
         </div>
       </header>
-      
+
 
       <div className="mobile-links">
         <a href="#inicio">Inicio</a>
