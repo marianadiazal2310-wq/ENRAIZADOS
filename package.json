@@ -1,3 +1,4 @@
+
 {
   "name": "enraizados-fullstack",
   "version": "1.0.0",
@@ -7,6 +8,7 @@
     "client:dev": "vite --host 0.0.0.0",
     "server:dev": "nodemon server/server.js",
     "build": "vite build",
+    "deploy": "gh-pages -d dist",
     "start": "node server/server.js"
   },
   "dependencies": {
@@ -25,6 +27,8 @@
   "devDependencies": {
     "concurrently": "^9.1.2",
     "nodemon": "^3.1.9",
-    "vite": "^6.0.7"
+    "vite": "^6.0.7",
+    "gh-pages": "^6.3.0"
   }
 }
+
