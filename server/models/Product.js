@@ -1,0 +1,3 @@
+const mongoose=require("mongoose");
+const schema=new mongoose.Schema({name:{type:String,required:true,trim:true},artisan:{type:String,required:true,trim:true},category:{type:String,required:true},price:{type:Number,required:true,min:0},description:{type:String,required:true},material:{type:String,required:true},image:{type:String,default:"/images/bolso-iraca.svg"},stock:{type:Number,default:0,min:0},active:{type:Boolean,default:true}},{timestamps:true});
+module.exports=mongoose.model("Product",schema);

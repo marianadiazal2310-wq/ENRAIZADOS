@@ -1,0 +1,3 @@
+const router=require("express").Router(),Contact=require("../models/Contact");
+router.post("/",async(req,res)=>{try{const {name,email,message}=req.body;if(!name||!email||!message)return res.status(400).json({message:"Completa todos los campos"});const saved=await Contact.create({name,email,message});res.status(201).json({message:"Mensaje registrado",id:saved._id});}catch{res.status(400).json({message:"No se pudo guardar el mensaje"});}});
+module.exports=router;

@@ -1,0 +1,3 @@
+const bcrypt=require("bcryptjs"),Admin=require("../models/Admin");
+async function ensureAdmin(){const email=process.env.ADMIN_EMAIL,password=process.env.ADMIN_PASSWORD;if(!email||!password||password.includes("cambia_esta_clave")){console.log("Configura ADMIN_EMAIL y ADMIN_PASSWORD propia en .env para crear administrador.");return;}const found=await Admin.findOne({email:email.toLowerCase()});if(!found){await Admin.create({name:process.env.ADMIN_NAME||"Administrador",email:email.toLowerCase(),passwordHash:await bcrypt.hash(password,12)});console.log("Administrador inicial creado.");}}
+module.exports={ensureAdmin};

@@ -1,0 +1,6 @@
+const router=require("express").Router(),Product=require("../models/Product"),auth=require("../middleware/auth"),{demoProducts}=require("../utils/demoProducts");
+router.get("/",async(_req,res)=>{try{let products=await Product.find({active:true}).sort({createdAt:-1});if(!products.length)products=demoProducts;res.json({products});}catch{res.status(500).json({message:"Error al consultar productos"});}});
+router.post("/",auth,async(req,res)=>{try{const product=await Product.create(req.body);res.status(201).json({product});}catch(e){res.status(400).json({message:"No se pudo crear el producto",detail:e.message});}});
+router.patch("/:id",auth,async(req,res)=>{try{const product=await Product.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});if(!product)return res.status(404).json({message:"Producto no encontrado"});res.json({product});}catch{res.status(400).json({message:"No se pudo actualizar"});}});
+router.delete("/:id",auth,async(req,res)=>{try{const product=await Product.findByIdAndUpdate(req.params.id,{active:false},{new:true});if(!product)return res.status(404).json({message:"Producto no encontrado"});res.json({message:"Producto desactivado"});}catch{res.status(400).json({message:"No se pudo desactivar"});}});
+module.exports=router;
